@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My "Ặc Ặc" GAWllery — Hiuflaneur</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; font-size: 15px; line-height: 1.6; color: #111; background: #fff; overflow-x: hidden; }
+    a { text-decoration: none; color: inherit; }
+    img { max-width: 100%; display: block; }
+
+    /* NAV */
+    nav { display: flex; align-items: center; justify-content: space-between; padding: 0 48px; height: 64px; position: sticky; top: 0; background: #fff; z-index: 100; border-bottom: 1px solid #ebebeb; }
+    .nav-logo { display: flex; align-items: center; gap: 10px; }
+    .nav-logo-mark { width: 30px; height: 30px; background: #111; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 13px; font-weight: 700; flex-shrink: 0; }
+    .nav-logo-name { font-size: 16px; font-weight: 600; letter-spacing: -0.3px; }
+    .nav-links { display: flex; gap: 36px; align-items: center; }
+    .nav-links a { font-size: 13px; color: #555; font-weight: 400; transition: color 0.2s; }
+    .nav-links a:hover { color: #111; }
+    .nav-cta { font-size: 13px; font-weight: 500; color: #111; }
+
+    /* PAGE HERO TEXT */
+    .page-header {
+      padding: 72px 48px 56px;
+      border-bottom: 1px solid #ebebeb;
+      max-width: 800px;
+    }
+    .page-eyebrow {
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #999;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .page-eyebrow::before { content: '●'; font-size: 6px; }
+    .page-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(40px, 7vw, 80px);
+      font-weight: 700;
+      letter-spacing: -2px;
+      line-height: 1;
+      color: #111;
+      margin-bottom: 20px;
+    }
+    .page-subtitle {
+      font-size: 16px;
+      color: #777;
+      font-style: italic;
+    }
+
+    /* HERO VIDEO */
+    .hero-video-wrap {
+      width: 100%;
+      max-height: 90vh;
+      overflow: hidden;
+      line-height: 0;
+    }
+    .hero-video-wrap video {
+      width: 100%;
+      max-height: 90vh;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* NOTE SECTION */
+    .note-section {
+      background: #111;
+      color: #fff;
+      text-align: center;
+      padding: 60px 48px;
+    }
+    .note-section p {
+      font-size: 16px;
+      line-height: 1.8;
+      max-width: 600px;
+      margin: 0 auto 24px;
+      color: #ccc;
+    }
+    .note-section .coming-soon {
+      font-size: 13px;
+      color: #888;
+      margin-bottom: 32px;
+    }
+    .btn-white {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #fff;
+      color: #111;
+      padding: 12px 28px;
+      border-radius: 100px;
+      font-size: 13px;
+      font-weight: 600;
+      transition: background 0.2s;
+    }
+    .btn-white:hover { background: #f0f0f0; }
+
+    /* FOOTER */
+    footer { background: #111; color: #fff; padding: 32px 48px; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #222; }
+    .footer-nav { display: flex; gap: 28px; }
+    .footer-nav a { font-size: 12px; color: #666; transition: color 0.2s; }
+    .footer-nav a:hover { color: #fff; }
+    .footer-contact { text-align: right; }
+    .footer-email { font-size: 18px; font-weight: 600; letter-spacing: -0.5px; display: block; }
+    .footer-phone { font-size: 13px; color: #888; margin-top: 4px; }
+
+    @media (max-width: 960px) {
+      nav { padding: 0 20px; }
+      .nav-links { display: none; }
+      .page-header { padding: 48px 20px 40px; }
+      .note-section { padding: 48px 20px; }
+      footer { padding: 28px 20px; flex-direction: column; gap: 20px; text-align: center; }
+      .footer-contact { text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="../index.html" class="nav-logo">
+      <div class="nav-logo-mark">H</div>
+      <span class="nav-logo-name">Hiuflaneur</span>
+    </a>
+    <div class="nav-links">
+      <a href="../about.html">About Me</a>
+      <a href="../portfolio.html">Portfolio</a>
+    </div>
+    <a href="mailto:jimnguyen.101@gmail.com" class="nav-cta">'Brick' that Bridge. Let's Meet! ↗</a>
+  </nav>
+
+  <!-- HEADER -->
+  <div class="page-header">
+    <div class="page-eyebrow">Blog</div>
+    <h1 class="page-title">My "Ặc Ặc" GAWllery</h1>
+    <p class="page-subtitle">If I paint you I like you, okurrrrrr!</p>
+  </div>
+
+  <!-- HERO VIDEO -->
+  <div class="hero-video-wrap">
+    <video controls loop playsinline>
+      <source src="../assets/blog/b1/main.mov" type="video/mp4" />
+    </video>
+  </div>
+
+  <!-- NOTE SECTION -->
+  <div class="note-section">
+    <p>This is my personal art space. No rules, no brief, no client. Just vibes and colors and the people I like enough to paint.</p>
+    <p class="coming-soon">More works coming soon — follow @hiuflaneur for updates.</p>
+    <a href="mailto:jimnguyen.101@gmail.com" class="btn-white">Let's Talk ↗</a>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-nav">
+      <a href="../index.html">Home</a>
+      <a href="../about.html">About Me</a>
+      <a href="../portfolio.html">Portfolio</a>
+    </div>
+    <div class="footer-contact">
+      <span class="footer-email">jimnguyen.101@gmail.com</span>
+      <div class="footer-phone">0938718471</div>
+    </div>
+  </footer>
+
+
+<style>
+.video-wrap { position: relative; display: block; }
+.video-wrap video { display: block; width: 100%; }
+.video-play-btn {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 72px; height: 72px;
+  background: rgba(255,255,255,0.92);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  transition: transform 0.2s, opacity 0.2s, background 0.2s;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.22);
+  z-index: 10;
+  pointer-events: none;
+}
+.video-play-btn svg { width: 26px; height: 26px; fill: #111; margin-left: 5px; }
+.video-wrap.playing .video-play-btn { opacity: 0; }
+.video-wrap:hover .video-play-btn { transform: translate(-50%, -50%) scale(1.1); background: #fff; }
+.video-wrap { cursor: pointer; }
+</style>
+<script>
+(function(){
+  document.querySelectorAll('video').forEach(function(vid) {
+    // Wrap video
+    var wrap = document.createElement('div');
+    wrap.className = 'video-wrap';
+    // Preserve inline style on wrap if video had style
+    vid.parentNode.insertBefore(wrap, vid);
+    wrap.appendChild(vid);
+    // Play button
+    var btn = document.createElement('div');
+    btn.className = 'video-play-btn';
+    btn.innerHTML = '<svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>';
+    wrap.appendChild(btn);
+    // Toggle play/pause on click
+    wrap.addEventListener('click', function() {
+      if (vid.paused) { vid.play(); wrap.classList.add('playing'); }
+      else { vid.pause(); wrap.classList.remove('playing'); }
+    });
+    vid.addEventListener('ended', function() { wrap.classList.remove('playing'); });
+    vid.addEventListener('pause', function() { wrap.classList.remove('playing'); });
+    vid.addEventListener('play', function() { wrap.classList.add('playing'); });
+  });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portfolio — Hiuflaneur</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; font-size: 15px; line-height: 1.6; color: #111; background: #fff; overflow-x: hidden; }
+    a { text-decoration: none; color: inherit; }
+    img { max-width: 100%; display: block; }
+
+    /* NAV */
+    nav { display: flex; align-items: center; justify-content: space-between; padding: 0 48px; height: 64px; position: sticky; top: 0; background: #fff; z-index: 100; border-bottom: 1px solid #ebebeb; }
+    .nav-logo { display: flex; align-items: center; gap: 10px; }
+    .nav-logo-mark { width: 30px; height: 30px; background: #111; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 13px; font-weight: 700; }
+    .nav-logo-name { font-size: 16px; font-weight: 600; letter-spacing: -0.3px; }
+    .nav-links { display: flex; gap: 36px; align-items: center; }
+    .nav-links a { font-size: 13px; color: #555; font-weight: 400; transition: color 0.2s; }
+    .nav-links a:hover, .nav-links a.active { color: #111; font-weight: 500; }
+    .nav-cta { font-size: 13px; font-weight: 500; color: #111; }
+
+    /* PAGE HERO */
+    .page-hero {
+      padding: 80px 48px 64px;
+      border-bottom: 1px solid #ebebeb;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 40px;
+    }
+    .page-eyebrow { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: #999; margin-bottom: 16px; display: flex; align-items: center; gap: 6px; }
+    .page-eyebrow::before { content: '●'; font-size: 6px; }
+    .page-title { font-family: 'Playfair Display', serif; font-size: clamp(48px, 8vw, 96px); font-weight: 700; letter-spacing: -4px; line-height: 0.9; }
+    .page-hero-right { max-width: 360px; }
+    .page-hero-desc { font-size: 14px; color: #777; line-height: 1.8; }
+
+    /* FILTER TABS */
+    .filter-bar {
+      display: flex;
+      gap: 8px;
+      padding: 24px 48px;
+      border-bottom: 1px solid #ebebeb;
+      overflow-x: auto;
+      scrollbar-width: none;
+      flex-wrap: wrap;
+    }
+    .filter-bar::-webkit-scrollbar { display: none; }
+    .filter-btn {
+      flex-shrink: 0;
+      font-size: 12px;
+      padding: 7px 16px;
+      border-radius: 100px;
+      border: 1px solid #ddd;
+      background: #fff;
+      color: #555;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: 'Inter', sans-serif;
+    }
+    .filter-btn:hover { border-color: #111; color: #111; }
+    .filter-btn.active { background: #111; color: #fff; border-color: #111; }
+
+    /* PROJECT LIST */
+    .project-list { padding: 0 48px; }
+    .project-item {
+      display: grid;
+      grid-template-columns: 320px 1fr auto;
+      gap: 40px;
+      padding: 40px 0;
+      border-bottom: 1px solid #f0f0f0;
+      align-items: center;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .project-item:hover { background: #fafafa; margin: 0 -48px; padding: 40px 48px; }
+    .project-item:last-child { border-bottom: none; }
+    .project-img { aspect-ratio: 16/9; overflow: hidden; border-radius: 10px; }
+    .project-img img,
+    .project-img video { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s; display: block; }
+    .project-item:hover .project-img img,
+    .project-item:hover .project-img video { transform: scale(1.04); }
+    .project-info { }
+    .project-tag { font-size: 10px; text-transform: uppercase; letter-spacing: 2px; color: #bbb; margin-bottom: 8px; }
+    .project-name { font-family: 'Playfair Display', serif; font-size: clamp(20px, 2.5vw, 28px); font-weight: 700; letter-spacing: -0.5px; margin-bottom: 10px; }
+    .project-desc { font-size: 13px; color: #777; line-height: 1.7; max-width: 480px; margin-bottom: 6px; }
+    .project-campaign { font-size: 13px; color: #999; font-style: italic; margin-bottom: 16px; }
+    .project-pills { display: flex; gap: 6px; flex-wrap: wrap; }
+    .project-pill { font-size: 10px; padding: 3px 10px; border-radius: 100px; background: #f0f0f0; color: #555; }
+    .project-pill.dark { background: #111; color: #fff; }
+    .project-arrow {
+      width: 48px;
+      height: 48px;
+      border: 1.5px solid #ddd;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      color: #999;
+      flex-shrink: 0;
+      transition: all 0.2s;
+    }
+    .project-item:hover .project-arrow { background: #111; color: #fff; border-color: #111; }
+
+    /* CTA */
+    .portfolio-cta { background: #111; color: #fff; padding: 80px 48px; text-align: center; margin-top: 0; }
+    .cta-title { font-family: 'Playfair Display', serif; font-size: clamp(28px, 4vw, 52px); font-weight: 700; letter-spacing: -1px; margin-bottom: 14px; }
+    .cta-sub { font-size: 14px; color: #888; margin-bottom: 32px; max-width: 400px; margin-left: auto; margin-right: auto; }
+    .btn-white { display: inline-flex; align-items: center; gap: 6px; background: #fff; color: #111; padding: 12px 28px; border-radius: 100px; font-size: 13px; font-weight: 600; transition: background 0.2s; }
+    .btn-white:hover { background: #f0f0f0; }
+
+    /* FOOTER */
+    footer { background: #111; color: #fff; padding: 32px 48px; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #222; }
+    .footer-nav { display: flex; gap: 28px; }
+    .footer-nav a { font-size: 12px; color: #666; transition: color 0.2s; }
+    .footer-nav a:hover { color: #fff; }
+    .footer-contact { text-align: right; }
+    .footer-email { font-size: 20px; font-weight: 600; letter-spacing: -0.5px; display: block; }
+    .footer-phone { font-size: 13px; color: #888; margin-top: 4px; }
+
+    @media (max-width: 960px) {
+      nav { padding: 0 20px; }
+      .nav-links { display: none; }
+      .page-hero { padding: 48px 20px 40px; flex-direction: column; align-items: flex-start; }
+      .filter-bar { padding: 16px 20px; }
+      .project-list { padding: 0 20px; }
+      .project-item { grid-template-columns: 1fr; gap: 16px; }
+      .project-item:hover { margin: 0 -20px; padding: 40px 20px; }
+      .project-arrow { display: none; }
+      .portfolio-cta { padding: 60px 20px; }
+      footer { padding: 28px 20px; flex-direction: column; gap: 20px; text-align: center; }
+      .footer-contact { text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="nav-logo">
+      <div class="nav-logo-mark">H</div>
+      <span class="nav-logo-name">Hiuflaneur</span>
+    </a>
+    <div class="nav-links">
+      <a href="about.html">About Me</a>
+      <a href="portfolio.html" class="active">Portfolio</a>
+    </div>
+    <a href="mailto:jimnguyen.101@gmail.com" class="nav-cta">'Brick' that Bridge. Let's Meet! ↗</a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="page-hero">
+    <div>
+      <div class="page-eyebrow">Portfolio</div>
+      <h1 class="page-title">The Big<br>Brick Book</h1>
+    </div>
+    <div class="page-hero-right">
+      <p class="page-hero-desc">Each project is a brick, laid over years of building campaigns, refining ideas that shape my path toward brand architecture. Brands built from brief to execution.</p>
+    </div>
+  </section>
+
+  <!-- FILTER -->
+  <div class="filter-bar">
+    <button class="filter-btn active" onclick="filterProjects('all', this)">All Projects</button>
+    <button class="filter-btn" onclick="filterProjects('personalization', this)">@Personalization</button>
+    <button class="filter-btn" onclick="filterProjects('brandplatform', this)">@BrandPlatform</button>
+    <button class="filter-btn" onclick="filterProjects('human-centric', this)">@Human-centric</button>
+    <button class="filter-btn" onclick="filterProjects('brandstory', this)">@BrandStory</button>
+    <button class="filter-btn" onclick="filterProjects('digitalcampaign', this)">@DigitalCampaign</button>
+    <button class="filter-btn" onclick="filterProjects('tetthematic', this)">@TetThematic</button>
+    <button class="filter-btn" onclick="filterProjects('360campaign', this)">@360Campaign</button>
+    <button class="filter-btn" onclick="filterProjects('branddesigning', this)">@BrandDesigning</button>
+  </div>
+
+  <div class="project-list" id="project-list">
+
+    <!-- C1 -->
+    <a href="work/c1.html" class="project-item" data-tag="personalization">
+      <div class="project-img"><img src="assets/portfolio/c1/cover.jpg" alt="Samsung Ghi Nét" /></div>
+      <div class="project-info">
+        <div class="project-tag">@Personalization</div>
+        <div class="project-name">Samsung Ghi Nét</div>
+        <div class="project-desc">Localize Samsung's global Personalization platform. A phone is never the same once imprinted by daily usage.</div>
+        <div class="project-campaign">Samsung Uniche – Samsung Ghi Nét</div>
+        <div class="project-pills">
+          <span class="project-pill dark">UX</span>
+          <span class="project-pill">Branding</span>
+          <span class="project-pill">Social</span>
+        </div>
+      </div>
+      <div class="project-arrow">↗</div>
+    </a>
+
+    <!-- C2 -->
+    <a href="work/c2.html" class="project-item" data-tag="brandplatform">
+      <div class="project-img"><img src="assets/portfolio/c2/cover.png" alt="Tiger Beer Bản Lĩnh Đời Thường" /></div>
+      <div class="project-info">
+        <div class="project-tag">@BrandPlatform</div>
+        <div class="project-name">Tiger Beer Bản Lĩnh Đời Thường</div>
+        <div class="project-desc">Reinterpret Tiger's Core Courage for social — courage lives in everyday choices.</div>
+        <div class="project-campaign">Uncage the Everyday Courage</div>
+        <div class="project-pills">
+          <span class="project-pill dark">Social</span>
+          <span class="project-pill">Branding</span>
+          <span class="project-pill">Platform</span>
+        </div>
+      </div>
+      <div class="project-arrow">↗</div>
+    </a>
+
+    <!-- C3 -->
+    <a href="work/c3.html" class="project-item" data-tag="human-centric">
+      <div class="project-img"><img src="assets/portfolio/c3/cover.png" alt="Tiger Soju Đắng Nhẹ Ngọt Êm" /></div>
+      <div class="project-info">
+        <div class="project-tag">@Human-centric</div>
+        <div class="project-name">Tiger Soju Đắng Nhẹ Ngọt Êm</div>
+        <div class="project-desc">Make Tiger Soju's bittersweet taste sexy to Gen Z.</div>
+        <div class="project-campaign">Đời SoDzui when we Soju!</div>
+        <div class="project-pills">
+          <span class="project-pill dark">TikTok</span>
+          <span class="project-pill">Gen Z</span>
+          <span class="project-pill">Social</span>
+        </div>
+      </div>
+      <div class="project-arrow">↗</div>
+    </a>
+
+    <!-- C4 -->
+    <a href="work/c4.html" class="project-item" data-tag="brandstory">
+      <div class="project-img"><img src="assets/portfolio/c4/cover.png" alt="GreenFarm" /></div>
+      <div class="project-info">
+        <div class="project-tag">@BrandStory</div>
+        <div class="project-name">GreenFarm</div>
+        <div class="project-desc">Make GreenFarm's science feel like consumer-friendly proof of quality.</div>
+        <div class="project-campaign">Taste crafted with the art of science.</div>
+        <div class="project-pills">
+          <span class="project-pill dark">Hero Film</span>
+          <span class="project-pill">Branding</span>
+          <span class="project-pill">GTM</span>
+        </div>
+      </div>
+      <div class="project-arrow">↗</div>
+    </a>
+
+    <!-- C5 -->
+    <a href="work/c5.html" class="project-item" data-tag="brandstory">
+      <div class="project-img"><img src="assets/portfolio/c5/cover.png" alt="GreenFarm Drinking Yogurt" /></div>
+      <div class="project-info">
+        <div class="project-tag">@BrandStory</div>
+        <div class="project-name">GreenFarm Drinking Yogurt</div>
+        <div class="project-desc">Introduce GreenFarm Yogurt to Gen Z as a fashion statement.</div>
+        <div class="project-campaign">NOT JUST A YOGURT</div>
+        <div class="project-pills">
+          <span class="project-pill dark">Gen Z</span>
+          <span class="project-pill">Branding</span>
+          <span class="project-pill">Launch</span>
+        </div>
+      </div>
+      <div class="project-arrow">↗</div>
+    </a>
+
+    <!-- C6 -->
+    <a href="work/c6.html" class="project-item" data-tag="brandstory">
+      <div class="project-img"><img src="assets/portfolio/c6/cover.png" alt="GreenFarm Pasteurized Milk" /></div>
+      <div class="project-info">
+        <div class="project-tag">@BrandStory</div>
+        <div class="project-name">GreenFarm Pasteurized Milk</div>
+        <div class="project-desc">GreenFarm Thanh Trùng as every barista's favorite.</div>
+        <div class="project-campaign">BARIS"TA" TRONG TA</div>
+        <div class="project-pills">
+          <span class="project-pill dark">Social</span>
+          <span class="project-pill">Branding</span>
+        </div>
+      </div>
+      <div class="project-arrow">↗</div>
+    </a>
+
+    <!-- C7 -->
+    <a href="work/c7.html" class="project-item" data-tag="digitalcampaign">
+      <div class="project-img"><img src="assets/portfolio/c7/cover.png" alt="7UP LEMONMATE" /></div>
+      <div class="project-info">
+        <div class="project-tag">@DigitalCampaign</div>
+        <div class="project-name">7UP LEMONMATE</div>
+        <div class="project-desc">Pair oily foods with 7UP — soda makes oily food taste better.</div>
+        <div class="project-campaign">CHANH ÁI — CHÂN ÁI MÓN NGON</div>
+        <div class="project-pills">
+          <span class="project-pill dark">Digital</span>
+          <span class="project-pill">Social</span>
+        </div>
+      </div>
+      <div class="project-arrow">↗</div>
+    </a>
+
+    <!-- C8 -->
+    <a href="work/c8.html" class="project-item" data-tag="tetthematic">
+      <div class="project-img"><img src="assets/portfolio/c8/cover.png" alt="KFC TABLE-SIZED HOME OF XÔM-NESS" /></div>
+      <div class="project-info">
+        <div class="project-tag">@TetThematic</div>
+        <div class="project-name">KFC TABLE-SIZED HOME OF XÔM-NESS</div>
+        <div class="project-desc">KFC as home for Gen MZ who couldn't go home for Tết.</div>
+        <div class="project-campaign">XÔM CẢ BÀN, HOME CẢ TỤ</div>
+        <div class="project-pills">
+          <span class="project-pill dark">Tết</span>
+          <span class="project-pill">Social</span>
+          <span class="project-pill">Seasonal</span>
+        </div>
+      </div>
+      <div class="project-arrow">↗</div>
+    </a>
+
+    <!-- C9 -->
+    <a href="work/c9.html" class="project-item" data-tag="360campaign">
+      <div class="project-img"><img src="assets/portfolio/c9/cover.webp" alt="BEROCCA" /></div>
+      <div class="project-info">
+        <div class="project-tag">@360Campaign</div>
+        <div class="project-name">BEROCCA</div>
+        <div class="project-desc">Build a campaign where Berocca energy transfers and scales. 73% market penetration, 1B+ TikTok views.</div>
+        <div class="project-campaign">TRANSCEND POSITIVE ENERGY</div>
+        <div class="project-pills">
+          <span class="project-pill dark">360°</span>
+          <span class="project-pill">TikTok</span>
+          <span class="project-pill">Brand Love</span>
+        </div>
+      </div>
+      <div class="project-arrow">↗</div>
+    </a>
+
+    <!-- C10 -->
+    <a href="work/c10.html" class="project-item" data-tag="digitalcampaign">
+      <div class="project-img"><img src="assets/portfolio/c10/cover.png" alt="ACB FLEX" /></div>
+      <div class="project-info">
+        <div class="project-tag">@DigitalCampaign</div>
+        <div class="project-name">ACB FLEX</div>
+        <div class="project-desc">Simplify ACB Flex — smarter payment flexibility, not just dual card.</div>
+        <div class="project-campaign">LESS FOR MORE OF YOU</div>
+        <div class="project-pills">
+          <span class="project-pill dark">Fintech</span>
+          <span class="project-pill">Digital</span>
+          <span class="project-pill">Education</span>
+        </div>
+      </div>
+      <div class="project-arrow">↗</div>
+    </a>
+
+    <!-- C11 -->
+    <a href="work/c11.html" class="project-item" data-tag="360campaign">
+      <div class="project-img"><img src="assets/portfolio/c11/cover.png" alt="VISA MULTIPASS" /></div>
+      <div class="project-info">
+        <div class="project-tag">@360Campaign</div>
+        <div class="project-name">VISA MULTIPASS</div>
+        <div class="project-desc">Exclusive multi-pass card METRO × Techcombank × Visa.</div>
+        <div class="project-campaign">ONWARD, A NEW CHAPTER</div>
+        <div class="project-pills">
+          <span class="project-pill dark">Branding</span>
+          <span class="project-pill">Design</span>
+          <span class="project-pill">Collab</span>
+        </div>
+      </div>
+      <div class="project-arrow">↗</div>
+    </a>
+
+    <!-- C12 -->
+    <a href="work/c12.html" class="project-item" data-tag="branddesigning">
+      <div class="project-img"><img src="assets/portfolio/c12/cover.png" alt="VISA MOONGIFT" /></div>
+      <div class="project-info">
+        <div class="project-tag">@BrandDesigning</div>
+        <div class="project-name">VISA MOONGIFT — VEE DIỆU</div>
+        <div class="project-desc">Mid-Autumn gift set reflecting Visa's power of small steps.</div>
+        <div class="project-campaign">Vee diệu cùng Visa</div>
+        <div class="project-pills">
+          <span class="project-pill dark">Branding</span>
+          <span class="project-pill">GiftSet</span>
+        </div>
+      </div>
+      <div class="project-arrow">↗</div>
+    </a>
+
+    <!-- C13 -->
+    <a href="work/c13.html" class="project-item" data-tag="digitalcampaign">
+      <div class="project-img">
+        <video controls loop playsinline style="width:100%;height:100%;object-fit:cover">
+          <source src="assets/portfolio/c13/main.mp4" type="video/mp4" />
+        </video>
+      </div>
+      <div class="project-info">
+        <div class="project-tag">@DigitalCampaign</div>
+        <div class="project-name">AIA — DÌ HAI HAY LO</div>
+        <div class="project-desc">Simplify insurance for rural audiences through a relatable spokesauntie.</div>
+        <div class="project-campaign">SPOKEAUNTIE</div>
+        <div class="project-pills">
+          <span class="project-pill dark">Digital</span>
+          <span class="project-pill">Social</span>
+        </div>
+      </div>
+      <div class="project-arrow">↗</div>
+    </a>
+
+    <!-- C14 -->
+    <a href="work/c14.html" class="project-item" data-tag="digitalcampaign">
+      <div class="project-img"><img src="assets/portfolio/c14/cover.png" alt="DIANA" /></div>
+      <div class="project-info">
+        <div class="project-tag">@DigitalCampaign</div>
+        <div class="project-name">DIANA — TRỜI TÍNH KHÔNG BẰNG THAN HOẠT TÍNH</div>
+        <div class="project-desc">Reheat Diana charcoal innovation.</div>
+        <div class="project-campaign">PLAN AHEAD, A "PERIOD" OF TIME</div>
+        <div class="project-pills">
+          <span class="project-pill dark">Gen Z</span>
+          <span class="project-pill">Relaunch</span>
+          <span class="project-pill">Social</span>
+        </div>
+      </div>
+      <div class="project-arrow">↗</div>
+    </a>
+
+  </div>
+
+  <!-- CTA -->
+  <section class="portfolio-cta">
+    <h2 class="cta-title">Want to See the Full Deck?</h2>
+    <p class="cta-sub">Drop me a message and I'll share the full case studies with strategy, creative, and results.</p>
+    <a href="mailto:jimnguyen.101@gmail.com" class="btn-white">Get in Touch ↗</a>
+  </section>
+
+  <footer>
+    <div class="footer-nav">
+      <a href="index.html">Home</a>
+      <a href="about.html">About Me</a>
+      <a href="portfolio.html">Portfolio</a>
+      <a href="index.html#blog">Blog</a>
+    </div>
+    <div class="footer-contact">
+      <span class="footer-email">jimnguyen.101@gmail.com</span>
+      <div class="footer-phone">0938718471</div>
+    </div>
+  </footer>
+
+  <script>
+    function filterProjects(tag, btn) {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      document.querySelectorAll('.project-item').forEach(item => {
+        if (tag === 'all' || item.dataset.tag === tag) {
+          item.style.display = 'grid';
+        } else {
+          item.style.display = 'none';
+        }
+      });
+    }
+  </script>
+
+
+<style>
+.video-wrap { position: relative; display: block; }
+.video-wrap video { display: block; width: 100%; }
+.video-play-btn {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 72px; height: 72px;
+  background: rgba(255,255,255,0.92);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  transition: transform 0.2s, opacity 0.2s, background 0.2s;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.22);
+  z-index: 10;
+  pointer-events: none;
+}
+.video-play-btn svg { width: 26px; height: 26px; fill: #111; margin-left: 5px; }
+.video-wrap.playing .video-play-btn { opacity: 0; }
+.video-wrap:hover .video-play-btn { transform: translate(-50%, -50%) scale(1.1); background: #fff; }
+.video-wrap { cursor: pointer; }
+</style>
+<script>
+(function(){
+  document.querySelectorAll('video').forEach(function(vid) {
+    // Wrap video
+    var wrap = document.createElement('div');
+    wrap.className = 'video-wrap';
+    // Preserve inline style on wrap if video had style
+    vid.parentNode.insertBefore(wrap, vid);
+    wrap.appendChild(vid);
+    // Play button
+    var btn = document.createElement('div');
+    btn.className = 'video-play-btn';
+    btn.innerHTML = '<svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>';
+    wrap.appendChild(btn);
+    // Toggle play/pause on click
+    wrap.addEventListener('click', function() {
+      if (vid.paused) { vid.play(); wrap.classList.add('playing'); }
+      else { vid.pause(); wrap.classList.remove('playing'); }
+    });
+    vid.addEventListener('ended', function() { wrap.classList.remove('playing'); });
+    vid.addEventListener('pause', function() { wrap.classList.remove('playing'); });
+    vid.addEventListener('play', function() { wrap.classList.add('playing'); });
+  });
+})();
+</script>
+</body>
+</html>

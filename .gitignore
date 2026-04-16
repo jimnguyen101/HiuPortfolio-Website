@@ -1,0 +1,14 @@
+# macOS
+.DS_Store
+**/.DS_Store
+
+# Claude Code
+.claude/
+
+# Misc
+*.log
+
+# Large media files (hosted externally)
+*.mov
+*.mp4
+*.gif

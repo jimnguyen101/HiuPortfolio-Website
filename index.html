@@ -1,0 +1,1128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hiuflaneur — Brand Architect</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
+  <style>
+    /* ─── RESET ─── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      line-height: 1.6;
+      color: #111;
+      background: #fff;
+      overflow-x: hidden;
+    }
+    a { text-decoration: none; color: inherit; }
+    img { max-width: 100%; display: block; }
+
+    /* ─── NAV ─── */
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 48px;
+      height: 64px;
+      position: sticky;
+      top: 0;
+      background: #fff;
+      z-index: 100;
+      border-bottom: 1px solid #ebebeb;
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .nav-logo-mark {
+      width: 30px;
+      height: 30px;
+      background: #111;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 13px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .nav-logo-name {
+      font-size: 16px;
+      font-weight: 600;
+      letter-spacing: -0.3px;
+    }
+    .nav-links {
+      display: flex;
+      gap: 36px;
+      align-items: center;
+    }
+    .nav-links a {
+      font-size: 13px;
+      color: #555;
+      font-weight: 400;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: #111; }
+    .nav-cta {
+      font-size: 13px;
+      font-weight: 500;
+      color: #111;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* ─── HERO ─── */
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      height: calc(100vh - 64px);
+      overflow: hidden;
+    }
+    .hero-left {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 48px;
+    }
+    .hero-stats {
+      display: flex;
+      gap: 40px;
+    }
+    .hero-stat-num {
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+    }
+    .hero-stat-label {
+      font-size: 11px;
+      color: #999;
+      line-height: 1.4;
+      max-width: 100px;
+    }
+    .hero-center {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    /* ─── LAYERED TEXT ─── */
+    .layered-text-wrap {
+      cursor: pointer;
+      user-select: none;
+      -webkit-font-smoothing: antialiased;
+    }
+    .layered-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .layered-item {
+      overflow: hidden;
+      position: relative;
+    }
+    .layered-item p {
+      font-family: 'Playfair Display', serif;
+      font-size: 52px;
+      font-weight: 700;
+      letter-spacing: -1.5px;
+      color: #111;
+      margin: 0;
+      padding: 0 6px;
+      white-space: nowrap;
+      text-transform: uppercase;
+      display: block;
+    }
+    .hero-tagline {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(14px, 1.6vw, 22px);
+      font-weight: 700;
+      font-style: italic;
+      color: #111;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      letter-spacing: 0.5px;
+      position: relative;
+      z-index: 2;
+      background: #fff;
+      padding-top: 24px;
+    }
+    .hero-tagline::before { content: '—'; color: #999; flex-shrink: 0; }
+    .hero-scroll {
+      font-size: 11px;
+      color: #bbb;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .hero-scroll::before {
+      content: '';
+      display: inline-block;
+      width: 1px;
+      height: 28px;
+      background: #ddd;
+    }
+    .hero-right {
+      overflow: hidden;
+      background: #f0f0f0;
+    }
+    .hero-right img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+      display: block;
+    }
+
+    /* ─── ABOUT ─── */
+    .about-section {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      border-bottom: 1px solid #ebebeb;
+      min-height: 560px;
+    }
+    .about-text-col {
+      padding: 56px 48px;
+      border-right: 1px solid #ebebeb;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .about-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: #999;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .about-label::before { content: '●'; font-size: 6px; }
+    .about-headline {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(36px, 5vw, 72px);
+      font-weight: 700;
+      letter-spacing: -2px;
+      line-height: 1;
+      color: #111;
+      margin-bottom: 28px;
+    }
+    .about-body {
+      font-size: 14px;
+      color: #555;
+      line-height: 1.9;
+      margin-bottom: 16px;
+      max-width: 480px;
+    }
+    .about-body.italic { font-style: italic; color: #888; margin-bottom: 0; }
+    .about-stats-row {
+      display: flex;
+      gap: 40px;
+      padding-top: 40px;
+      border-top: 1px solid #ebebeb;
+      margin-top: 40px;
+    }
+    .about-stat-n {
+      display: block;
+      font-family: 'Playfair Display', serif;
+      font-size: 36px;
+      font-weight: 700;
+      letter-spacing: -1.5px;
+      color: #111;
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+    .about-stat-l {
+      font-size: 11px;
+      color: #999;
+      line-height: 1.5;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .about-read-more {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      font-weight: 500;
+      color: #111;
+      margin-top: 32px;
+      border-bottom: 1px solid #111;
+      padding-bottom: 2px;
+      width: fit-content;
+      transition: opacity 0.2s;
+    }
+    .about-read-more:hover { opacity: 0.5; }
+    .about-photo-col {
+      overflow: hidden;
+    }
+    .about-photo-col img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+    }
+
+    /* ─── PORTFOLIO SCROLL ─── */
+    .portfolio-section {
+      background: #f7f7f7;
+    }
+    .portfolio-header {
+      padding: 52px 48px 32px;
+    }
+    .section-eyebrow {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #999;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .section-eyebrow::before { content: '●'; font-size: 6px; }
+    .section-heading {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(28px, 4vw, 48px);
+      font-weight: 700;
+      letter-spacing: -1px;
+      line-height: 1.1;
+    }
+    .portfolio-scroll {
+      display: flex;
+      gap: 0;
+      overflow-x: auto;
+      scrollbar-width: none;
+      padding-bottom: 52px;
+    }
+    .portfolio-scroll::-webkit-scrollbar { display: none; }
+    .portfolio-item {
+      flex: 0 0 340px;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+    }
+    .portfolio-item-img {
+      width: 100%;
+      aspect-ratio: 4/3;
+      overflow: hidden;
+      position: relative;
+    }
+    .portfolio-item-img img,
+    .portfolio-item-img video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+      display: block;
+    }
+    .portfolio-item:hover .portfolio-item-img img,
+    .portfolio-item:hover .portfolio-item-img video { transform: scale(1.06); }
+    .portfolio-item-arrow {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0.8);
+      opacity: 0;
+      width: 52px;
+      height: 52px;
+      background: #fff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      transition: opacity 0.3s, transform 0.3s;
+      color: #111;
+      z-index: 2;
+    }
+    .portfolio-item:hover .portfolio-item-arrow {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
+    }
+    .portfolio-item-label {
+      padding: 14px 16px 0;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      font-size: 12px;
+      color: #777;
+    }
+    .portfolio-item-label-brand {
+      font-size: 13px;
+      font-weight: 500;
+      color: #111;
+    }
+
+    /* ─── EXPERIENCE ─── */
+    .experience-section {
+      display: grid;
+      grid-template-columns: 1fr 1.8fr;
+      gap: 0;
+      border-top: 1px solid #ebebeb;
+    }
+    .exp-left {
+      padding: 56px 48px;
+      border-right: 1px solid #ebebeb;
+      position: sticky;
+      top: 64px;
+      align-self: start;
+    }
+    .exp-left-desc {
+      font-size: 13px;
+      color: #777;
+      line-height: 1.75;
+      margin-top: 14px;
+      max-width: 280px;
+    }
+    .btn-outline-sm {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border: 1px solid #111;
+      color: #111;
+      padding: 9px 20px;
+      border-radius: 100px;
+      font-size: 12px;
+      font-weight: 500;
+      margin-top: 28px;
+      transition: background 0.2s, color 0.2s;
+    }
+    .btn-outline-sm:hover { background: #111; color: #fff; }
+    .exp-list {
+      padding: 56px 48px;
+    }
+    .exp-entry {
+      padding: 32px 0;
+      border-bottom: 1px solid #f0f0f0;
+    }
+    .exp-entry:first-child { padding-top: 0; }
+    .exp-entry:last-child { border-bottom: none; }
+    .exp-entry-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 8px;
+    }
+    .exp-company-label {
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #999;
+      font-weight: 500;
+    }
+    .exp-desc {
+      font-size: 11px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: #bbb;
+      line-height: 2.0;
+      margin-bottom: 16px;
+    }
+    .exp-role-pill {
+      display: inline-flex;
+      align-items: center;
+      background: #111;
+      color: #fff;
+      font-size: 11px;
+      padding: 4px 14px;
+      border-radius: 100px;
+      font-weight: 500;
+      letter-spacing: 0.3px;
+    }
+
+    /* ─── CTA BANNER ─── */
+    .cta-banner {
+      position: relative;
+      background: #111;
+      color: #fff;
+      padding: 80px 48px;
+      text-align: center;
+      overflow: hidden;
+    }
+    .cta-banner-content { position: relative; z-index: 1; }
+    .cta-banner-eyebrow {
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #888;
+      margin-bottom: 14px;
+    }
+    .cta-banner h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(24px, 4vw, 44px);
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 10px;
+    }
+    .cta-banner p {
+      font-size: 13px;
+      color: #aaa;
+      margin-bottom: 28px;
+      max-width: 440px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .btn-white {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #fff;
+      color: #111;
+      padding: 12px 28px;
+      border-radius: 100px;
+      font-size: 13px;
+      font-weight: 600;
+      transition: background 0.2s;
+    }
+    .btn-white:hover { background: #f0f0f0; }
+
+    /* ─── LATEST WORKS ─── */
+    .works-section { padding: 64px 48px; }
+    .works-header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      margin-bottom: 36px;
+    }
+    .works-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+    .work-card {
+      position: relative;
+      overflow: hidden;
+      border-radius: 12px;
+    }
+    .work-card-img {
+      aspect-ratio: 4/3;
+      overflow: hidden;
+    }
+    .work-card-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    .work-card:hover .work-card-img img { transform: scale(1.06); }
+    .work-card-footer {
+      padding: 10px 4px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .work-card-name { font-size: 12px; color: #777; }
+    .work-card-name strong { color: #111; font-weight: 500; display: block; }
+    .work-card-arrow-sm {
+      width: 28px;
+      height: 28px;
+      border: 1px solid #ddd;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      color: #555;
+      flex-shrink: 0;
+    }
+    .works-footer {
+      margin-top: 28px;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 24px;
+      font-size: 13px;
+      color: #555;
+    }
+    .works-footer a { font-weight: 500; text-decoration: underline; text-underline-offset: 3px; }
+
+    /* ─── BLOG ─── */
+    .blog-section { padding: 64px 48px; background: #f7f7f7; }
+    .blog-header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      margin-bottom: 36px;
+    }
+    .blog-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .blog-card { background: #fff; border-radius: 12px; overflow: hidden; }
+    .blog-card-img { aspect-ratio: 16/9; overflow: hidden; }
+    .blog-card-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s; }
+    .blog-card:hover .blog-card-img img { transform: scale(1.04); }
+    .blog-card-body { padding: 20px; }
+    .blog-title { font-size: 15px; font-weight: 600; line-height: 1.4; margin-bottom: 8px; color: #111; }
+    .blog-excerpt { font-size: 12px; color: #888; line-height: 1.6; }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: #111;
+      color: #fff;
+      padding: 32px 48px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .footer-nav {
+      display: flex;
+      gap: 28px;
+    }
+    .footer-nav a { font-size: 12px; color: #666; transition: color 0.2s; }
+    .footer-nav a:hover { color: #fff; }
+    .footer-contact { text-align: right; }
+    .footer-email { font-size: 20px; font-weight: 600; letter-spacing: -0.5px; display: block; }
+    .footer-phone { font-size: 13px; color: #888; margin-top: 4px; }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 960px) {
+      nav { padding: 0 20px; }
+      .nav-links { display: none; }
+      .hero { grid-template-columns: 1fr; height: auto; }
+      .hero-right { height: 50vw; min-height: 240px; }
+      .hero-left { padding: 32px 20px; }
+      .layered-item p { font-size: 38px; }
+      .layered-text-wrap { transform: scale(0.9); transform-origin: left center; }
+      .about-section { grid-template-columns: 1fr; }
+      .about-text-col { padding: 40px 20px; border-right: none; border-bottom: 1px solid #ebebeb; }
+      .about-photo-col { min-height: 320px; }
+      .about-stats-row { gap: 24px; }
+      .experience-section { grid-template-columns: 1fr; }
+      .exp-left { position: static; padding: 32px 20px; border-right: none; border-bottom: 1px solid #ebebeb; }
+      .exp-list { padding: 32px 20px; }
+      .portfolio-header { padding: 40px 20px 24px; }
+      .works-section, .blog-section { padding: 48px 20px; }
+      .works-grid { grid-template-columns: 1fr 1fr; }
+      .blog-grid { grid-template-columns: 1fr; }
+      footer { padding: 28px 20px; flex-direction: column; gap: 20px; text-align: center; }
+      .footer-contact { text-align: center; }
+      .footer-email { font-size: 16px; }
+    }
+    @media (max-width: 600px) {
+      .works-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ─── NAV ─── -->
+  <nav>
+    <div class="nav-logo">
+      <div class="nav-logo-mark">H</div>
+      <span class="nav-logo-name">Hiuflaneur</span>
+    </div>
+    <div class="nav-links">
+      <a href="about.html">About Me</a>
+      <a href="portfolio.html">Portfolio</a>
+      <a href="#experience">Experience</a>
+      <a href="#blog">Blog</a>
+    </div>
+    <a href="mailto:jimnguyen.101@gmail.com" class="nav-cta">'Brick' that Bridge. Let's Meet!</a>
+  </nav>
+
+  <!-- ─── HERO ─── -->
+  <section class="hero">
+    <div class="hero-left">
+      <!-- big word -->
+      <div class="hero-center">
+        <div class="layered-text-wrap" id="layeredHero">
+          <ul class="layered-list" id="layeredList"></ul>
+        </div>
+      </div>
+      <div class="hero-tagline">THỢ HỒ CHÂN CHÍNH, CÒN HƠN CHÍN THỢ</div>
+      <!-- scroll -->
+      <div class="hero-scroll">Scroll down</div>
+    </div>
+    <div class="hero-right">
+      <img src="assets/about/hero.jpg" alt="Hiu — Brand Architect" />
+    </div>
+  </section>
+
+  <!-- ─── ABOUT ─── -->
+  <section class="about-section" id="about">
+
+    <!-- Col 1: text -->
+    <div class="about-text-col">
+      <div>
+        <div class="about-label">About Me</div>
+        <h2 class="about-headline">Brand<br>Architect.</h2>
+        <p class="about-body">I'm a brand architect turning complex brand challenges into elegant campaign systems. Each project is a brick, laid over years of building campaigns and refining ideas that shape my path toward brand architecture.</p>
+        <p class="about-body italic">Never follow a formula — because surprises make the best campaign.</p>
+        <a href="about.html" class="about-read-more">Read full story →</a>
+      </div>
+      <div class="about-stats-row">
+        <div>
+          <span class="about-stat-n">8+</span>
+          <span class="about-stat-l">Years in<br>the industry</span>
+        </div>
+        <div>
+          <span class="about-stat-n">14+</span>
+          <span class="about-stat-l">Brand<br>campaigns</span>
+        </div>
+        <div>
+          <span class="about-stat-n">10+</span>
+          <span class="about-stat-l">Major<br>brands</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Col 2: photo -->
+    <div class="about-photo-col">
+      <img src="assets/about/4.jpg" alt="Hiu — Brand Architect" />
+    </div>
+
+  </section>
+
+  <!-- ─── PORTFOLIO SCROLL ─── -->
+  <section class="portfolio-section" id="portfolio">
+    <div class="portfolio-header">
+      <div class="section-eyebrow">Portfolio</div>
+    </div>
+    <div class="portfolio-scroll">
+
+      <a href="work/c1.html" class="portfolio-item">
+        <div class="portfolio-item-img">
+          <img src="assets/portfolio/c1/cover.jpg" alt="Samsung Ghi Nét" />
+        </div>
+        <div class="portfolio-item-arrow">↗</div>
+        <div class="portfolio-item-label">
+          <span class="portfolio-item-label-brand">Samsung Ghi Nét</span>
+          <span>@Personalization</span>
+        </div>
+      </a>
+
+      <a href="work/c2.html" class="portfolio-item">
+        <div class="portfolio-item-img">
+          <img src="assets/portfolio/c2/cover.png" alt="Tiger Beer Bản Lĩnh Đời Thường" />
+        </div>
+        <div class="portfolio-item-arrow">↗</div>
+        <div class="portfolio-item-label">
+          <span class="portfolio-item-label-brand">Tiger Beer Bản Lĩnh Đời Thường</span>
+          <span>@BrandPlatform</span>
+        </div>
+      </a>
+
+      <a href="work/c3.html" class="portfolio-item">
+        <div class="portfolio-item-img">
+          <img src="assets/portfolio/c3/cover.png" alt="Tiger Soju Đắng Nhẹ Ngọt Êm" />
+        </div>
+        <div class="portfolio-item-arrow">↗</div>
+        <div class="portfolio-item-label">
+          <span class="portfolio-item-label-brand">Tiger Soju Đắng Nhẹ Ngọt Êm</span>
+          <span>@Human-centric</span>
+        </div>
+      </a>
+
+      <a href="work/c4.html" class="portfolio-item">
+        <div class="portfolio-item-img">
+          <img src="assets/portfolio/c4/cover.png" alt="GreenFarm" />
+        </div>
+        <div class="portfolio-item-arrow">↗</div>
+        <div class="portfolio-item-label">
+          <span class="portfolio-item-label-brand">GreenFarm</span>
+          <span>@BrandStory</span>
+        </div>
+      </a>
+
+      <a href="work/c5.html" class="portfolio-item">
+        <div class="portfolio-item-img">
+          <img src="assets/portfolio/c5/cover.png" alt="GreenFarm Drinking Yogurt" />
+        </div>
+        <div class="portfolio-item-arrow">↗</div>
+        <div class="portfolio-item-label">
+          <span class="portfolio-item-label-brand">GreenFarm Drinking Yogurt</span>
+          <span>@BrandStory</span>
+        </div>
+      </a>
+
+      <a href="work/c6.html" class="portfolio-item">
+        <div class="portfolio-item-img">
+          <img src="assets/portfolio/c6/cover.png" alt="GreenFarm Pasteurized Milk" />
+        </div>
+        <div class="portfolio-item-arrow">↗</div>
+        <div class="portfolio-item-label">
+          <span class="portfolio-item-label-brand">GreenFarm Pasteurized Milk</span>
+          <span>@BrandStory</span>
+        </div>
+      </a>
+
+      <a href="work/c7.html" class="portfolio-item">
+        <div class="portfolio-item-img">
+          <img src="assets/portfolio/c7/cover.png" alt="7UP LEMONMATE" />
+        </div>
+        <div class="portfolio-item-arrow">↗</div>
+        <div class="portfolio-item-label">
+          <span class="portfolio-item-label-brand">7UP LEMONMATE</span>
+          <span>@DigitalCampaign</span>
+        </div>
+      </a>
+
+      <a href="work/c8.html" class="portfolio-item">
+        <div class="portfolio-item-img">
+          <img src="assets/portfolio/c8/cover.png" alt="KFC TABLE-SIZED HOME OF XÔM-NESS" />
+        </div>
+        <div class="portfolio-item-arrow">↗</div>
+        <div class="portfolio-item-label">
+          <span class="portfolio-item-label-brand">KFC TABLE-SIZED HOME OF XÔM-NESS</span>
+          <span>@TetThematic</span>
+        </div>
+      </a>
+
+      <a href="work/c9.html" class="portfolio-item">
+        <div class="portfolio-item-img">
+          <img src="assets/portfolio/c9/cover.webp" alt="BEROCCA" />
+        </div>
+        <div class="portfolio-item-arrow">↗</div>
+        <div class="portfolio-item-label">
+          <span class="portfolio-item-label-brand">BEROCCA</span>
+          <span>@360Campaign</span>
+        </div>
+      </a>
+
+      <a href="work/c10.html" class="portfolio-item">
+        <div class="portfolio-item-img">
+          <img src="assets/portfolio/c10/cover.png" alt="ACB FLEX" />
+        </div>
+        <div class="portfolio-item-arrow">↗</div>
+        <div class="portfolio-item-label">
+          <span class="portfolio-item-label-brand">ACB FLEX</span>
+          <span>@DigitalCampaign</span>
+        </div>
+      </a>
+
+      <a href="work/c11.html" class="portfolio-item">
+        <div class="portfolio-item-img">
+          <img src="assets/portfolio/c11/cover.png" alt="VISA MULTIPASS" />
+        </div>
+        <div class="portfolio-item-arrow">↗</div>
+        <div class="portfolio-item-label">
+          <span class="portfolio-item-label-brand">VISA MULTIPASS</span>
+          <span>@360Campaign</span>
+        </div>
+      </a>
+
+      <a href="work/c12.html" class="portfolio-item">
+        <div class="portfolio-item-img">
+          <img src="assets/portfolio/c12/cover.png" alt="VISA MOONGIFT" />
+        </div>
+        <div class="portfolio-item-arrow">↗</div>
+        <div class="portfolio-item-label">
+          <span class="portfolio-item-label-brand">VISA MOONGIFT</span>
+          <span>@BrandDesigning</span>
+        </div>
+      </a>
+
+      <a href="work/c13.html" class="portfolio-item">
+        <div class="portfolio-item-img">
+          <video controls loop playsinline>
+            <source src="assets/portfolio/c13/main.mp4" type="video/mp4" />
+          </video>
+        </div>
+        <div class="portfolio-item-arrow">↗</div>
+        <div class="portfolio-item-label">
+          <span class="portfolio-item-label-brand">AIA — DÌ HAI HAY LO</span>
+          <span>@DigitalCampaign</span>
+        </div>
+      </a>
+
+      <a href="work/c14.html" class="portfolio-item">
+        <div class="portfolio-item-img">
+          <img src="assets/portfolio/c14/cover.png" alt="DIANA" />
+        </div>
+        <div class="portfolio-item-arrow">↗</div>
+        <div class="portfolio-item-label">
+          <span class="portfolio-item-label-brand">DIANA</span>
+          <span>@DigitalCampaign</span>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- ─── EXPERIENCE ─── -->
+  <section class="experience-section" id="experience">
+    <div class="exp-left">
+      <div class="section-eyebrow">Experience</div>
+      <h2 class="section-heading" style="font-family:'Playfair Display',serif;">Explore My Brand<br>Journey</h2>
+      <p class="exp-left-desc">Over the past years, I've had the opportunity to work on a wide range of brand projects, collaborating with diverse teams and clients to bring creative visions to life.</p>
+      <a href="mailto:jimnguyen.101@gmail.com" class="btn-outline-sm">Book a Call ↗</a>
+    </div>
+
+    <div class="exp-list">
+
+      <div class="exp-entry">
+        <div class="exp-entry-header">
+          <span class="exp-company-label">Circus Digital | 2023–Current</span>
+        </div>
+        <div class="exp-desc">Architect conceptual development for major brand campaigns, partnering with art direction &amp; planning to drive competitive ideas.</div>
+        <span class="exp-role-pill">Senior Creative. Lead Concept</span>
+      </div>
+
+      <div class="exp-entry">
+        <div class="exp-entry-header">
+          <span class="exp-company-label">Carnival | 2021–2022</span>
+        </div>
+        <div class="exp-desc">Led a compact creative unit and drove strategic pitches for FMCG and lifestyle brands.</div>
+        <span class="exp-role-pill">Senior Creative. Team Lead</span>
+      </div>
+
+      <div class="exp-entry">
+        <div class="exp-entry-header">
+          <span class="exp-company-label">Click Media – VML Y&amp;R | 2018–2021</span>
+        </div>
+        <div class="exp-desc">Strengthening consumer insight articulation and digital-first storytelling.</div>
+        <span class="exp-role-pill">Mid-level Copywriter</span>
+      </div>
+
+      <div class="exp-entry">
+        <div class="exp-entry-header">
+          <span class="exp-company-label">Adasia Holdings | 2016–2018</span>
+        </div>
+        <div class="exp-desc">Built foundation in brand storytelling and 360 campaign thinking.</div>
+        <span class="exp-role-pill">Mid-level Copywriter</span>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ─── CTA BANNER ─── -->
+  <section class="cta-banner">
+    <div class="cta-banner-content">
+      <div class="cta-banner-eyebrow">● Book Your Free Consultation Here!</div>
+      <h2>LET 'BRICK' THE BRIDGE!</h2>
+      <p>THỢ HỒ CHÂN CHÍNH, CÒN HƠN CHÍN THỢ</p>
+      <a href="mailto:jimnguyen.101@gmail.com" class="btn-white">Let's Talk ↗</a>
+    </div>
+  </section>
+
+  <!-- ─── LATEST WORKS ─── -->
+  <section class="works-section" id="works">
+    <div class="works-header">
+      <div class="section-eyebrow">Portfolio</div>
+      <h2 class="section-heading">Latest Works</h2>
+    </div>
+    <div class="works-grid">
+
+      <a href="work/c7.html" class="work-card">
+        <div class="work-card-img">
+          <img src="assets/portfolio/c7/cover.png" alt="7UP LEMONMATE" />
+        </div>
+        <div class="work-card-footer">
+          <div class="work-card-name">
+            <strong>7UP LEMONMATE</strong>
+            @DigitalCampaign
+          </div>
+          <div class="work-card-arrow-sm">↗</div>
+        </div>
+      </a>
+
+      <a href="work/c8.html" class="work-card">
+        <div class="work-card-img">
+          <img src="assets/portfolio/c8/cover.png" alt="KFC HOME OF XÔM-NESS" />
+        </div>
+        <div class="work-card-footer">
+          <div class="work-card-name">
+            <strong>KFC HOME OF XÔM-NESS</strong>
+            @TetThematic
+          </div>
+          <div class="work-card-arrow-sm">↗</div>
+        </div>
+      </a>
+
+      <a href="work/c9.html" class="work-card">
+        <div class="work-card-img">
+          <img src="assets/portfolio/c9/cover.webp" alt="BEROCCA" />
+        </div>
+        <div class="work-card-footer">
+          <div class="work-card-name">
+            <strong>BEROCCA</strong>
+            @360Campaign
+          </div>
+          <div class="work-card-arrow-sm">↗</div>
+        </div>
+      </a>
+
+    </div>
+    <div class="works-footer">
+      <span>Check out More</span>
+      <a href="portfolio.html">→ View More</a>
+    </div>
+  </section>
+
+  <!-- ─── BLOG ─── -->
+  <section class="blog-section" id="blog">
+    <div class="blog-header">
+      <div class="section-eyebrow">Blogs</div>
+      <h2 class="section-heading">Brand Insights &amp; Thinking</h2>
+    </div>
+    <div class="blog-grid">
+
+      <a href="blog-pages/gallery.html" class="blog-card">
+        <div class="blog-card-img">
+          <img src="assets/blog/b1/cover.png" alt="My Ặc Ặc GAWllery" />
+        </div>
+        <div class="blog-card-body">
+          <div class="blog-title">My "Ặc Ặc" GAWllery</div>
+          <div class="blog-excerpt">If I paint you I like you, okurrrrrr!</div>
+        </div>
+      </a>
+
+      <a href="blog-pages/poems.html" class="blog-card">
+        <div class="blog-card-img">
+          <img src="assets/blog/b2/cover.png" alt="My Not Qualified Poems" />
+        </div>
+        <div class="blog-card-body">
+          <div class="blog-title">My Not Qualified Poems</div>
+          <div class="blog-excerpt">Hisss the critics, it's the thought that counts</div>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- ─── FOOTER ─── -->
+  <footer>
+    <div class="footer-nav">
+      <a href="#">Home</a>
+      <a href="about.html">About Me</a>
+      <a href="portfolio.html">Portfolio</a>
+      <a href="#blog">Blog</a>
+    </div>
+    <div class="footer-contact">
+      <span class="footer-email">jimnguyen.101@gmail.com</span>
+      <div class="footer-phone">0938718471</div>
+    </div>
+  </footer>
+
+<script>
+(function () {
+  var lines = [
+    { top: "\u00A0", bottom: "THỢ"       },
+    { top: "THỢ",   bottom: "HỒ"        },
+    { top: "HỒ",    bottom: "HỞI"       },
+    { top: "HỞI",   bottom: "BRAND"     },
+    { top: "BRAND", bottom: "ARCHITECT" },
+    { top: "ARCHITECT", bottom: "\u00A0" }
+  ];
+
+  var LINE_H   = 58;   // px — height of each li and each p
+  var OFFSET   = 18;   // px — horizontal stagger per step
+  var CENTER   = Math.floor(lines.length / 2);
+
+  var list      = document.getElementById('layeredList');
+  var container = document.getElementById('layeredHero');
+  if (!list || !container || typeof gsap === 'undefined') return;
+
+  lines.forEach(function (line, i) {
+    var tx     = (i - CENTER) * OFFSET;
+    var isEven = i % 2 === 0;
+    var skew   = isEven
+      ? 'translateX(' + tx + 'px) skew(60deg,-30deg) scaleY(0.66667)'
+      : 'translateX(' + tx + 'px) skew(0deg,-30deg)  scaleY(1.33333)';
+
+    var li = document.createElement('li');
+    li.className        = 'layered-item';
+    li.style.height     = LINE_H + 'px';
+    li.style.transform  = skew;
+
+    [line.top, line.bottom].forEach(function (txt) {
+      var p            = document.createElement('p');
+      p.textContent    = txt;
+      p.style.height   = LINE_H + 'px';
+      p.style.lineHeight = (LINE_H - 5) + 'px';
+      li.appendChild(p);
+    });
+
+    list.appendChild(li);
+  });
+
+  /* ── GSAP autoplay loop ── */
+  var allP = list.querySelectorAll('p');
+
+  var tl = gsap.timeline({ repeat: -1, yoyo: true, repeatDelay: 0.6 });
+  tl.to(allP, {
+    y:        -LINE_H,
+    duration:  0.85,
+    ease:     'power2.inOut',
+    stagger:   0.07
+  });
+})();
+</script>
+
+<style>
+.video-wrap { position: relative; display: block; }
+.video-wrap video { display: block; width: 100%; }
+.video-play-btn {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 72px; height: 72px;
+  background: rgba(255,255,255,0.92);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  transition: transform 0.2s, opacity 0.2s, background 0.2s;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.22);
+  z-index: 10;
+  pointer-events: none;
+}
+.video-play-btn svg { width: 26px; height: 26px; fill: #111; margin-left: 5px; }
+.video-wrap.playing .video-play-btn { opacity: 0; }
+.video-wrap:hover .video-play-btn { transform: translate(-50%, -50%) scale(1.1); background: #fff; }
+.video-wrap { cursor: pointer; }
+</style>
+<script>
+(function(){
+  document.querySelectorAll('video').forEach(function(vid) {
+    // Wrap video
+    var wrap = document.createElement('div');
+    wrap.className = 'video-wrap';
+    // Preserve inline style on wrap if video had style
+    vid.parentNode.insertBefore(wrap, vid);
+    wrap.appendChild(vid);
+    // Play button
+    var btn = document.createElement('div');
+    btn.className = 'video-play-btn';
+    btn.innerHTML = '<svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>';
+    wrap.appendChild(btn);
+    // Toggle play/pause on click
+    wrap.addEventListener('click', function() {
+      if (vid.paused) { vid.play(); wrap.classList.add('playing'); }
+      else { vid.pause(); wrap.classList.remove('playing'); }
+    });
+    vid.addEventListener('ended', function() { wrap.classList.remove('playing'); });
+    vid.addEventListener('pause', function() { wrap.classList.remove('playing'); });
+    vid.addEventListener('play', function() { wrap.classList.add('playing'); });
+  });
+})();
+</script>
+</body>
+</html>
