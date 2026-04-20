@@ -89,13 +89,24 @@
       overflow: hidden;
       background: #000;
     }
-    .hero-video {
+    /* Vimeo cover technique — fills viewport regardless of aspect ratio */
+    .hero-vimeo-wrap {
       position: absolute;
-      inset: 0;
+      top: 50%;
+      left: 50%;
+      width: 100vw;
+      height: 56.25vw;    /* 16:9 based on width */
+      min-height: 100vh;
+      min-width: 177.78vh; /* 16:9 based on height */
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+    }
+    .hero-vimeo-wrap iframe {
+      position: absolute;
+      top: 0; left: 0;
       width: 100%;
       height: 100%;
-      object-fit: cover;
-      display: block;
+      border: 0;
     }
     .hero-endframe {
       position: absolute;
@@ -106,33 +117,32 @@
       justify-content: center;
       text-align: center;
       opacity: 0;
-      transition: opacity 1.2s ease;
+      transition: opacity 1.4s ease;
       pointer-events: none;
-      padding: 40px;
-      background: rgba(0,0,0,0.35);
+      padding: clamp(24px, 5vw, 80px);
     }
     .hero-endframe.visible {
       opacity: 1;
     }
     .hero-endframe-name {
       font-family: 'Playfair Display', serif;
-      font-size: clamp(48px, 8vw, 96px);
+      font-size: clamp(40px, 9vw, 110px);
       font-weight: 700;
       color: #fff;
       letter-spacing: -2px;
       text-transform: uppercase;
       line-height: 1;
-      margin-bottom: 20px;
-      text-shadow: 0 2px 32px rgba(0,0,0,0.5);
+      margin-bottom: clamp(10px, 2vw, 24px);
+      text-shadow: 0 4px 40px rgba(0,0,0,0.6);
     }
     .hero-endframe-tagline {
       font-family: 'Playfair Display', serif;
-      font-size: clamp(14px, 2vw, 22px);
+      font-size: clamp(13px, 2vw, 24px);
       font-weight: 400;
       font-style: italic;
-      color: rgba(255,255,255,0.88);
+      color: rgba(255,255,255,0.9);
       letter-spacing: 0.5px;
-      text-shadow: 0 1px 16px rgba(0,0,0,0.5);
+      text-shadow: 0 2px 20px rgba(0,0,0,0.6);
     }
 
     /* ─── ABOUT ─── */
@@ -597,41 +607,38 @@
 
   <!-- ─── HERO ─── -->
   <section class="hero">
-    <video class="hero-video" id="heroVideo" muted playsinline loop preload="auto">
-      <source src="assets/hero.mp4" type="video/mp4">
-    </video>
+    <div class="hero-vimeo-wrap">
+      <iframe
+        id="vimeoPlayer"
+        src="https://player.vimeo.com/video/1184685087?autoplay=1&loop=1&muted=1&background=1&dnt=1"
+        allow="autoplay; fullscreen; picture-in-picture"
+        allowfullscreen>
+      </iframe>
+    </div>
     <div class="hero-endframe" id="heroEndframe">
       <div class="hero-endframe-name">THỢ HỒ HỞI</div>
       <div class="hero-endframe-tagline">Thợ hồ chân chính, còn hơn chín thợ</div>
     </div>
   </section>
+
+  <script src="https://player.vimeo.com/api/player.js"></script>
   <script>
     (function(){
-      var vid = document.getElementById('heroVideo');
       var frame = document.getElementById('heroEndframe');
-
-      /* Force autoplay — required by some browsers */
-      vid.muted = true;
-      var playPromise = vid.play();
-      if (playPromise !== undefined) {
-        playPromise.catch(function() {
-          /* Autoplay blocked — try again on first user interaction */
-          document.addEventListener('click', function() { vid.play(); }, { once: true });
-          document.addEventListener('touchstart', function() { vid.play(); }, { once: true });
-        });
-      }
-
       var shown = false;
-      vid.addEventListener('timeupdate', function(){
-        if (!vid.duration) return;
-        var remaining = vid.duration - vid.currentTime;
-        if (remaining <= 2.5 && !shown) {
-          shown = true;
-          frame.classList.add('visible');
-        } else if (remaining > 2.5 && shown) {
-          shown = false;
-          frame.classList.remove('visible');
-        }
+      var player = new Vimeo.Player('vimeoPlayer');
+
+      player.getDuration().then(function(duration) {
+        player.on('timeupdate', function(data) {
+          var remaining = duration - data.seconds;
+          if (remaining <= 3 && !shown) {
+            shown = true;
+            frame.classList.add('visible');
+          } else if (remaining > 3 && shown) {
+            shown = false;
+            frame.classList.remove('visible');
+          }
+        });
       });
     })();
   </script>
