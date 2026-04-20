@@ -81,112 +81,57 @@
     }
 
     /* ─── HERO ─── */
+    /* ─── HERO VIDEO ─── */
     .hero {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      height: calc(100vh - 64px);
-      overflow: hidden;
-    }
-    .hero-left {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      padding: 48px;
-    }
-    .hero-stats {
-      display: flex;
-      gap: 40px;
-    }
-    .hero-stat-num {
-      font-size: 18px;
-      font-weight: 700;
-      letter-spacing: -0.5px;
-    }
-    .hero-stat-label {
-      font-size: 11px;
-      color: #111;
-      line-height: 1.4;
-      max-width: 100px;
-    }
-    .hero-center {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-
-    /* ─── LAYERED TEXT ─── */
-    .layered-text-wrap {
-      cursor: pointer;
-      user-select: none;
-      -webkit-font-smoothing: antialiased;
-    }
-    .layered-list {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-    .layered-item {
-      overflow: hidden;
       position: relative;
-    }
-    .layered-item p {
-      font-family: 'Playfair Display', serif;
-      font-size: 52px;
-      font-weight: 700;
-      letter-spacing: -1.5px;
-      color: #111;
-      margin: 0;
-      padding: 0 6px;
-      white-space: nowrap;
-      text-transform: uppercase;
-      display: block;
-    }
-    .hero-tagline {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(14px, 1.6vw, 22px);
-      font-weight: 700;
-      font-style: italic;
-      color: #111;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      letter-spacing: 0.5px;
-      position: relative;
-      z-index: 2;
-      background: #fff;
-      padding-top: 24px;
-    }
-    .hero-tagline::before { content: ','; color: #111; flex-shrink: 0; }
-    .hero-scroll {
-      font-size: 11px;
-      color: #111;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    .hero-scroll::before {
-      content: '';
-      display: inline-block;
-      width: 1px;
-      height: 28px;
-      background: #ddd;
-    }
-    .hero-right {
+      width: 100%;
+      height: 100vh;
       overflow: hidden;
-      background: #f0f0f0;
+      background: #000;
     }
-    .hero-right img {
+    .hero-video {
+      position: absolute;
+      inset: 0;
       width: 100%;
       height: 100%;
       object-fit: cover;
-      object-position: top center;
       display: block;
+    }
+    .hero-endframe {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      opacity: 0;
+      transition: opacity 1.2s ease;
+      pointer-events: none;
+      padding: 40px;
+    }
+    .hero-endframe.visible {
+      opacity: 1;
+    }
+    .hero-endframe-name {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(48px, 8vw, 96px);
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: -2px;
+      text-transform: uppercase;
+      line-height: 1;
+      margin-bottom: 20px;
+      text-shadow: 0 2px 32px rgba(0,0,0,0.5);
+    }
+    .hero-endframe-tagline {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(14px, 2vw, 22px);
+      font-weight: 400;
+      font-style: italic;
+      color: rgba(255,255,255,0.88);
+      letter-spacing: 0.5px;
+      text-shadow: 0 1px 16px rgba(0,0,0,0.5);
     }
 
     /* ─── ABOUT ─── */
@@ -651,21 +596,28 @@
 
   <!-- ─── HERO ─── -->
   <section class="hero">
-    <div class="hero-left">
-      <!-- big word -->
-      <div class="hero-center">
-        <div class="layered-text-wrap" id="layeredHero">
-          <ul class="layered-list" id="layeredList"></ul>
-        </div>
-      </div>
-      <div class="hero-tagline">THỢ HỒ CHÂN CHÍNH, CÒN HƠN CHÍN THỢ</div>
-      <!-- scroll -->
-      <div class="hero-scroll">Scroll down</div>
-    </div>
-    <div class="hero-right">
-      <img src="assets/about/hero.jpg" alt="Hiu,  Brand Architect" />
+    <video class="hero-video" id="heroVideo" autoplay muted playsinline>
+      <source src="assets/hero.mp4" type="video/mp4">
+    </video>
+    <div class="hero-endframe" id="heroEndframe">
+      <div class="hero-endframe-name">THỢ HỒ HỞI</div>
+      <div class="hero-endframe-tagline">Thợ hồ chân chính, còn hơn chín thợ</div>
     </div>
   </section>
+  <script>
+    (function(){
+      var vid = document.getElementById('heroVideo');
+      var frame = document.getElementById('heroEndframe');
+      vid.addEventListener('timeupdate', function(){
+        if(vid.duration && vid.currentTime >= vid.duration - 2.5){
+          frame.classList.add('visible');
+        }
+      });
+      vid.addEventListener('ended', function(){
+        frame.classList.add('visible');
+      });
+    })();
+  </script>
 
   <!-- ─── ABOUT ─── -->
   <section class="about-section" id="about">
