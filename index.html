@@ -596,7 +596,7 @@
 
   <!-- ─── HERO ─── -->
   <section class="hero">
-    <video class="hero-video" id="heroVideo" autoplay muted playsinline>
+    <video class="hero-video" id="heroVideo" autoplay muted playsinline loop>
       <source src="assets/hero.mp4" type="video/mp4">
     </video>
     <div class="hero-endframe" id="heroEndframe">
@@ -608,13 +608,17 @@
     (function(){
       var vid = document.getElementById('heroVideo');
       var frame = document.getElementById('heroEndframe');
+      var shown = false;
       vid.addEventListener('timeupdate', function(){
-        if(vid.duration && vid.currentTime >= vid.duration - 2.5){
+        if (!vid.duration) return;
+        var remaining = vid.duration - vid.currentTime;
+        if (remaining <= 2.5 && !shown) {
+          shown = true;
           frame.classList.add('visible');
+        } else if (remaining > 2.5 && shown) {
+          shown = false;
+          frame.classList.remove('visible');
         }
-      });
-      vid.addEventListener('ended', function(){
-        frame.classList.add('visible');
       });
     })();
   </script>
