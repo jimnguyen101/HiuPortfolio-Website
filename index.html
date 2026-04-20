@@ -109,6 +109,7 @@
       transition: opacity 1.2s ease;
       pointer-events: none;
       padding: 40px;
+      background: rgba(0,0,0,0.35);
     }
     .hero-endframe.visible {
       opacity: 1;
@@ -596,7 +597,7 @@
 
   <!-- ─── HERO ─── -->
   <section class="hero">
-    <video class="hero-video" id="heroVideo" autoplay muted playsinline loop>
+    <video class="hero-video" id="heroVideo" muted playsinline loop preload="auto">
       <source src="assets/hero.mp4" type="video/mp4">
     </video>
     <div class="hero-endframe" id="heroEndframe">
@@ -608,6 +609,18 @@
     (function(){
       var vid = document.getElementById('heroVideo');
       var frame = document.getElementById('heroEndframe');
+
+      /* Force autoplay — required by some browsers */
+      vid.muted = true;
+      var playPromise = vid.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(function() {
+          /* Autoplay blocked — try again on first user interaction */
+          document.addEventListener('click', function() { vid.play(); }, { once: true });
+          document.addEventListener('touchstart', function() { vid.play(); }, { once: true });
+        });
+      }
+
       var shown = false;
       vid.addEventListener('timeupdate', function(){
         if (!vid.duration) return;
