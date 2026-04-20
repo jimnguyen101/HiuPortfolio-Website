@@ -107,6 +107,11 @@
       width: 100%;
       height: 100%;
       border: 0;
+      /* GPU acceleration for sharper rendering */
+      transform: translateZ(0);
+      backface-visibility: hidden;
+      will-change: transform;
+      image-rendering: high-quality;
     }
     .hero-endframe {
       position: absolute;
@@ -616,7 +621,7 @@
     <div class="hero-vimeo-wrap">
       <iframe
         id="vimeoPlayer"
-        src="https://player.vimeo.com/video/1184685087?autoplay=1&loop=1&muted=1&background=1&dnt=1"
+        src="https://player.vimeo.com/video/1184685087?autoplay=1&loop=1&muted=1&background=1&dnt=1&quality=1080p"
         allow="autoplay; fullscreen; picture-in-picture"
         allowfullscreen>
       </iframe>
